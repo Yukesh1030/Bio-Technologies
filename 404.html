@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 | Bio Tech</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="not-found-body" style="background-color: #000; color: #fff; min-height: 100vh; display: flex; flex-direction: column; overflow: hidden;">
+    <nav>
+        <div class="logo">BIO TECH</div>
+        <ul class="nav-links">
+            <li><a href="overview.html">Overview</a></li>
+            <li><a href="index.html">Hardware</a></li>
+            <li><a href="404.html">Software</a></li>
+            <li><a href="404.html">Support</a></li>
+            <li><a href="404.html">Applications</a></li>
+            <li><a href="404.html">Bio Tech Reagents</a></li>
+            <li><a href="404.html">Contact</a></li>
+            <li><a href="404.html" class="btn btn-primary">Login</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+    <div class="radar-sweep"></div>
+    <div class="not-found" style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; z-index: 1;">
+        <h1 class="glitch-text" style="font-size: clamp(8rem, 20vw, 15rem); margin-bottom: 0; font-weight: 700;">404</h1>
+        <p style="font-size: 1.8rem; margin-bottom: 40px; opacity: 0.9; letter-spacing: 2px; text-transform: uppercase;">Signal Lost in Deep Space</p>
+        <div style="display: flex; gap: 20px; justify-content: center;">
+            <a href="#" onclick="history.back()" class="btn btn-outline" style="border-radius: 50px; padding: 15px 40px;">Back</a>
+            <a href="index.html" class="btn btn-primary" style="border-radius: 50px; padding: 15px 40px; background-color: #fff; color: #000 !important;">Return Home</a>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (hamburger) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
