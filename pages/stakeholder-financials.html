@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stakeholder Financials | Bio Tech</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sidebar-width: 240px;
+        }
+
+        body {
+            background-color: #050505;
+        }
+
+        .dashboard-wrapper {
+            display: flex;
+            min-height: 100vh;
+            padding-top: var(--navbar-height);
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: rgba(255, 255, 255, 0.02);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px 20px;
+            position: fixed;
+            height: calc(100vh - var(--navbar-height));
+            overflow-y: auto;
+            transition: 0.3s ease;
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .menu-item {
+            padding: 12px 16px;
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.3s ease;
+            text-decoration: none;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        .menu-item.active {
+            background: rgba(0, 116, 217, 0.1);
+            color: var(--accent-color);
+            border: 1px solid rgba(0, 116, 217, 0.2);
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 40px;
+            max-width: 1400px;
+        }
+
+        .dash-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .dash-header h1 {
+            font-size: 2.5rem;
+            line-height: 1.2;
+        }
+
+        .impact-chart-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 30px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 40px;
+        }
+
+        .chart-viz {
+            height: 300px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .bar {
+            width: 60px;
+            background: var(--accent-color);
+            border-radius: 10px 10px 0 0;
+            transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .bar::after {
+            content: attr(data-year);
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .bar:nth-child(even) {
+            background: #00d2ff;
+        }
+
+        .finance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .finance-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 24px;
+        }
+
+        .fin-label { color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; }
+        .fin-value { font-size: 2rem; font-weight: 700; color: #fff; }
+
+        @media (max-width: 1024px) {
+            .sidebar { width: 0; padding: 0; border: none; visibility: hidden; }
+            .main-content { margin-left: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .dash-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .dash-header h1 { font-size: 2rem; }
+            .main-content { padding: 20px; }
+            .bar { width: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo"><a href="../index.html">BIO TECH</a></div>
+        <ul class="nav-links">
+            <li><a href="stakeholder-overview.html">Overview</a></li>
+            <li><a href="stakeholder-financials.html" class="active">Financials</a></li>
+            <li><a href="stakeholder-milestones.html">Milestones</a></li>
+            <li><a href="support.html">Support</a></li>
+            <li><a href="reagents.html">Bio Tech Reagents</a></li>
+            <li><a href="login.html" class="btn btn-primary">Logout</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-menu">
+                <a href="stakeholder-overview.html" class="menu-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    Overview
+                </a>
+                <a href="stakeholder-financials.html" class="menu-item active">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    Financials
+                </a>
+                <a href="stakeholder-milestones.html" class="menu-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                    Milestones
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="dash-header reveal">
+                <div>
+                    <p style="color: var(--accent-color); font-weight: 600; margin-bottom: 10px;">Investor Portal</p>
+                    <h1>Financial Performance</h1>
+                </div>
+            </header>
+
+            <section class="impact-chart-section reveal">
+                <h2>Revenue Growth Velocity</h2>
+                <div class="chart-viz">
+                    <div class="bar" style="height: 30%;" data-year="2023"></div>
+                    <div class="bar" style="height: 50%;" data-year="2024"></div>
+                    <div class="bar" style="height: 75%;" data-year="2025"></div>
+                    <div class="bar" style="height: 95%;" data-year="2026"></div>
+                </div>
+            </section>
+
+            <div class="finance-grid">
+                <div class="finance-card reveal" style="transition-delay: 0.2s;">
+                    <span class="fin-label">Quarterly Revenue</span>
+                    <div class="fin-value">$248.5M</div>
+                </div>
+                <div class="finance-card reveal" style="transition-delay: 0.3s;">
+                    <span class="fin-label">Annual Growth</span>
+                    <div class="fin-value">+32%</div>
+                </div>
+                <div class="finance-card reveal" style="transition-delay: 0.4s;">
+                    <span class="fin-label">Net Margin</span>
+                    <div class="fin-value">14.2%</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(25px)';
+            el.style.transition = '1s cubic-bezier(0.16, 1, 0.3, 1)';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
