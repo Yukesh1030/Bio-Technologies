@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bio Tech | Reagents</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --reagent-blue: #0088cc;
+            --reagent-glow: rgba(0, 136, 204, 0.3);
+            --bio-pink: #d843ff;
+            --bio-teal: #00d2ff;
+        }
+
+        .reagent-hero {
+            padding: 120px 0 80px;
+            background: #000;
+            color: #fff;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Custom Viz Components */
+        .viz-container {
+            width: 100%;
+            height: clamp(300px, 50vh, 500px);
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Hero Viz */
+        .reagent-hero-viz {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 30px;
+            padding: 40px;
+        }
+
+        .dna-vessel {
+            width: clamp(60px, 10vw, 100px);
+            height: clamp(150px, 30vh, 250px);
+            background: linear-gradient(to bottom, rgba(255,255,255,0.05), transparent);
+            border: 2px solid var(--reagent-blue);
+            border-radius: 10px 10px 50% 50%;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px var(--reagent-glow);
+        }
+
+        .liquid {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(to top, var(--reagent-blue), var(--reagent-glow));
+            animation: tide 4s ease-in-out infinite;
+        }
+
+        @keyframes tide {
+            0%, 100% { height: 60%; transform: skewY(2deg); }
+            50% { height: 65%; transform: skewY(-2deg); }
+        }
+
+        .glow-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: rise 3s infinite linear;
+        }
+
+        @keyframes rise {
+            0% { transform: translateY(100%) translateX(0); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-200%) translateX(10px); opacity: 0; }
+        }
+
+        /* CFPS Viz */
+        .cfps-process-viz {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .node {
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 15px;
+            background: #fff;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.02);
+            text-align: center;
+            min-width: 120px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .node h4 { font-family: var(--font-sans); font-size: 0.8rem; margin-top: 10px; color: #666; }
+
+        .connector {
+            width: 50px;
+            height: 2px;
+            background: #eee;
+            position: relative;
+        }
+
+        .connector::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--reagent-blue);
+            border-radius: 50%;
+            top: -3px;
+            left: 0;
+            animation: move 2s infinite linear;
+        }
+
+        @keyframes move { to { left: 100%; } }
+
+        /* Pichia System Viz */
+        .system-path {
+            width: 100%;
+            max-width: 600px;
+            height: 200px;
+            border-left: 2px dashed #444;
+            border-bottom: 2px dashed #444;
+            position: relative;
+            margin: 40px;
+        }
+
+        .system-step {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--bio-pink);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--bio-pink);
+        }
+
+        /* Performance Chart */
+        .perf-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+            height: 200px;
+            padding: 20px;
+            border-left: 2px solid #333;
+            border-bottom: 2px solid #333;
+        }
+
+        .bar-segment {
+            flex: 1;
+            background: var(--reagent-blue);
+            min-height: 10px;
+            border-radius: 3px 3px 0 0;
+            transition: height 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+            position: relative;
+        }
+
+        .bar-segment::after {
+            content: attr(data-val);
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            /* Fix Propping Open Width */
+            html, body { overflow-x: hidden !important; width: 100vw !important; position: relative; }
+            
+            .reagent-hero-viz { flex-direction: column !important; align-items: center !important; gap: 20px !important; padding: 20px !important; }
+            .dna-vessel { width: 60px !important; height: 100px !important; flex-shrink: 0; }
+            
+            .cfps-process-viz { flex-direction: column !important; gap: 10px !important; height: auto !important; padding: 20px !important; width: 100% !important; }
+            .node { min-width: 0 !important; width: 80% !important; padding: 15px !important; }
+            .connector { width: 2px !important; height: 15px !important; }
+            .connector::after { top: 0 !important; left: -3px !important; animation: move-v 2s infinite linear !important; }
+            @keyframes move-v { to { top: 100%; } }
+            
+            .viz-container { height: auto !important; min-height: 200px !important; padding: 10px !important; width: 100% !important; }
+            .system-path { max-width: 90% !important; height: 140px !important; margin: 10px auto !important; overflow: hidden !important; }
+            
+            .perf-chart { height: 120px !important; gap: 5px !important; padding: 10px !important; width: 100% !important; border-width: 1px !important; }
+            .bar-segment::after { font-size: 0.5rem !important; top: -15px !important; }
+
+            .kit-grid { grid-template-columns: 1fr !important; gap: 20px !important; padding: 0 10px !important; }
+            .pichia-feature-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
+            .data-visual-row { padding: 30px 10px !important; margin-top: 30px !important; border-radius: 15px !important; }
+            
+            .section-header h2 { font-size: 1.6rem !important; }
+
+            /* Nav Force Fix */
+            nav { height: 65px !important; padding: 0 15px !important; width: 100% !important; }
+            .nav-links {
+                display: none !important; /* Hide completely to prevent propping width */
+            }
+            .nav-links.active {
+                display: flex !important;
+                position: fixed !important;
+                top: 65px !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: calc(100vh - 65px) !important;
+                background: #000 !important;
+                z-index: 1000 !important;
+                transform: none !important;
+                visibility: visible !important;
+            }
+            .hamburger { display: flex !important; flex-direction: column; gap: 4px; cursor: pointer; z-index: 1001 !important; }
+            .hamburger span { width: 22px; height: 2px; background: #fff; display: block; }
+        }
+
+        .reagent-hero .subtext {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            color: #888;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .hero-visual-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            padding: 20px;
+        }
+
+        .light-section {
+            background: #fff;
+            color: #000;
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+            max-width: 800px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .section-header p {
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .kit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .kit-card {
+            background: #f8f9fa;
+            border: 1px solid #eee;
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            border-color: var(--reagent-blue);
+        }
+
+        .kit-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #000;
+        }
+
+        .kit-card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .price-tag {
+            display: inline-block;
+            margin-top: 20px;
+            font-weight: 700;
+            color: var(--reagent-blue);
+            font-size: 1.2rem;
+        }
+
+        .pichia-feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .pichia-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 25px 0;
+        }
+
+        .pichia-content ul li {
+            padding-left: 25px;
+            position: relative;
+            margin-bottom: 12px;
+            color: #444;
+        }
+
+        .pichia-content ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--reagent-blue);
+        }
+
+        .data-visual-row {
+            margin-top: 80px;
+            padding: 60px;
+            background: #000;
+            border-radius: 30px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .data-visual-row h3 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        .cta-footer {
+            background: #000;
+            padding: 100px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .cta-footer h2 {
+            font-size: 2.5rem;
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @media (max-width: 992px) {
+            .pichia-feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo"><a href="../index.html">BIO TECH</a></div>
+        <ul class="nav-links">
+            <li><a href="overview.html">Overview</a></li>
+            <li><a href="hardware.html">Hardware</a></li>
+            <li><a href="software.html">Software</a></li>
+            <li><a href="404.html">Support</a></li>
+            <li><a href="reagents.html" class="active">Bio Tech Reagents</a></li>
+            <li><a href="404.html" class="btn btn-primary">Login</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main>
+        <section class="reagent-hero">
+            <div class="container">
+                <div class="reveal-up">
+                    <h1>Engineered reagents to power your research</h1>
+                    <p class="subtext">
+                        We are leveraging our 15 years of R&D experience to develop, manufacture, and supply high-quality products directly to customers. Our vision is to make it dramatically easier to use reagents in automated, high-throughput settings.
+                    </p>
+                </div>
+                <div class="hero-visual-container zoom-in">
+                    <div class="viz-container">
+                        <div class="reagent-hero-viz">
+                            <div class="dna-vessel">
+                                <div class="liquid"></div>
+                                <div class="glow-particle" style="left: 20%; animation-delay: 0s;"></div>
+                                <div class="glow-particle" style="left: 50%; animation-delay: 1.5s;"></div>
+                            </div>
+                            <div class="dna-vessel" style="border-color: var(--bio-pink); box-shadow: 0 0 30px rgba(216, 67, 255, 0.2); height: 180px;">
+                                <div class="liquid" style="background: linear-gradient(to top, var(--bio-pink), transparent); height: 40%;"></div>
+                                <div class="glow-particle" style="left: 30%; animation-delay: 0.5s;"></div>
+                            </div>
+                            <div class="dna-vessel" style="border-color: var(--bio-teal); box-shadow: 0 0 30px rgba(0, 210, 255, 0.2); height: 210px;">
+                                <div class="liquid" style="background: linear-gradient(to top, var(--bio-teal), transparent); height: 80%;"></div>
+                                <div class="glow-particle" style="left: 60%; animation-delay: 1s;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="light-section">
+            <div class="container">
+                <div class="section-header reveal-left">
+                    <h2>Cell Free Protein Synthesis Kits</h2>
+                    <p>
+                        Our's cell free protein synthesis (CFPS) kits are E. coli transcription/translation systems optimized to produce proteins from a T7 RNA Polymerase promoter. Reactions consist of a bacterial cell lysate and a reagent mix that contains all components required for protein production.
+                    </p>
+                </div>
+
+                <div class="kit-grid">
+                    <div class="kit-card reveal-up" style="transition-delay: 0.1s;">
+                        <h3>CFPS kit</h3>
+                        <p>premiere CFPS kit that gives yields of up to 3 mg/mL, with the fastest reaction times. Includes a Solubility-Enhanced Reagent Mix.</p>
+                        <span class="price-tag">$240.00 USD</span>
+                    </div>
+                    <div class="kit-card reveal-up" style="transition-delay: 0.2s;">
+                        <h3>CFPS Economy kit</h3>
+                        <p>AI-optimized CFPS kit that produces yields of up to 1.5 mg/mL and is sold at a price point that makes CFPS more accessible.</p>
+                        <span class="price-tag">$90.00 USD</span>
+                    </div>
+                    <div class="kit-card reveal-up" style="transition-delay: 0.3s;">
+                        <h3>CFPS Ready96 kit</h3>
+                        <p>Automation-ready plates with all components premixed and aliquoted into a 96 well plate for high-throughput discovery.</p>
+                        <span class="price-tag">$480.00 USD</span>
+                    </div>
+                </div>
+
+                <div class="hero-visual-container reveal-up" style="margin-top: 60px;">
+                    <div class="viz-container">
+                        <div class="cfps-process-viz">
+                            <div class="node">
+                                <div style="font-size: 1.5rem;">🧬</div>
+                                <h4>DNA Template</h4>
+                            </div>
+                            <div class="connector"></div>
+                            <div class="node" style="border-color: var(--reagent-blue);">
+                                <div style="font-size: 1.5rem;">🧪</div>
+                                <h4>Cell Lysate</h4>
+                            </div>
+                            <div class="connector"></div>
+                            <div class="node" style="border-color: var(--bio-teal);">
+                                <div style="font-size: 1.5rem;">✨</div>
+                                <h4>CFPS Reaction</h4>
+                            </div>
+                            <div class="connector"></div>
+                            <div class="node" style="background: var(--reagent-blue); color: #fff;">
+                                <div style="font-size: 1.5rem;">💎</div>
+                                <h4>Pure Protein</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="light-section" style="padding-top: 0; background: #fff;">
+            <div class="container">
+                <div class="pichia-feature-grid">
+                    <div class="pichia-content reveal-left">
+                        <h2>PichiaWorks Protein Expression System</h2>
+                        <span class="price-tag" style="font-size: 1.5rem; margin-bottom: 20px;">$1,200.00 USD</span>
+                        <p>Our PichiaWorks Protein Expression Kit is a Pichia pastoris based system designed for high-level production of cytosolic and secreted recombinant proteins. Notably DOES NOT use methanol for induction.</p>
+                        
+                        <div style="margin-top: 30px;">
+                            <strong>Kit Contents:</strong>
+                            <ul>
+                                <li>PichiaWorks Strain1 competent cells</li>
+                                <li>Vector for cytosolic protein expression</li>
+                                <li>Vector for secreted protein expression</li>
+                                <li>Control vector for expression of mCherry</li>
+                                <li>Amplification primers</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="pichia-visual reveal-right">
+                        <div class="viz-container" style="background: #050505;">
+                            <div class="system-path">
+                                <div class="system-step" style="top: -6px; left: -6px;"></div>
+                                <div class="system-step" style="bottom: -6px; right: -6px; background: var(--reagent-blue); box-shadow: 0 0 15px var(--reagent-blue);"></div>
+                                <div style="position: absolute; top: 20%; left: 30%; color: rgba(255,255,255,0.2); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px;">Intracellular Pattern</div>
+                                <div style="position: absolute; bottom: 30%; right: 20%; color: var(--reagent-blue); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.6;">High Yield Secretion</div>
+                                
+                                <svg viewBox="0 0 600 200" preserveAspectRatio="none" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+                                    <path d="M 0 0 L 0 200 L 600 200" fill="none" stroke="rgba(0, 136, 204, 0.2)" stroke-width="2" stroke-dasharray="8,8" />
+                                    <circle r="6" fill="var(--bio-pink)">
+                                        <animateMotion dur="3s" repeatCount="indefinite" path="M 0 0 L 0 200 L 600 200" />
+                                    </circle>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="data-visual-row reveal-up">
+                    <h3>Which kit is right for you?</h3>
+                    <div class="viz-container" style="background: transparent; border: none;">
+                        <div class="perf-chart" style="width: 100%; max-width: 800px;">
+                            <div class="bar-segment reveal-up" style="height: 90%;" data-val="3.0 mg/mL"></div>
+                            <div class="bar-segment reveal-up" style="height: 45%; background: var(--bio-pink); transition-delay: 0.2s;" data-val="1.5 mg/mL"></div>
+                            <div class="bar-segment reveal-up" style="height: 85%; transition-delay: 0.4s;" data-val="2.8 mg/mL"></div>
+                            <div class="bar-segment reveal-up" style="height: 30%; background: var(--bio-pink); transition-delay: 0.6s;" data-val="1.0 mg/mL"></div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 20px; justify-content: center; margin-top: 20px; font-size: 0.8rem; opacity: 0.6;">
+                        <span style="display: flex; align-items: center; gap: 5px;"><div style="width: 10px; height: 10px; background: var(--reagent-blue);"></div> Standard Kits</span>
+                        <span style="display: flex; align-items: center; gap: 5px;"><div style="width: 10px; height: 10px; background: var(--bio-pink);"></div> Economy Kits</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-footer">
+            <div class="container">
+                <div class="reveal-up">
+                    <h2>Let's make biology easier to engineer together</h2>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Column 1: Newsletter -->
+                <div class="footer-column" style="padding-left: 20px;">
+                    <h2 class="footer-title">Curious about autonomous labs?</h2>
+                    <form class="newsletter-form" action="404.html">
+                        <label class="footer-label">Enter Your Email</label>
+                        <div class="footer-input-group">
+                            <input type="email" placeholder="email@email.com" required>
+                        </div>
+                        <button type="submit" class="btn-footer">Submit</button>
+                    </form>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="overview.html">Overview</a></li>
+                        <li><a href="hardware.html">Hardware</a></li>
+                        <li><a href="software.html">Software</a></li>
+                        <li><a href="404.html">Support</a></li>
+                        <li><a href="reagents.html">Bio Tech Reagents</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Biosecurity -->
+                <div class="footer-column">
+                    <h4>Bio Tech Biosecurity</h4>
+                    <ul class="footer-links">
+                        <li><a href="404.html">Overview</a></li>
+                        <li><a href="404.html">Canopy</a></li>
+                        <li><a href="404.html">Horizon</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: More -->
+                <div class="footer-column">
+                    <h4>More from Bio Tech</h4>
+                    <ul class="footer-links">
+                        <li><a href="404.html">About</a></li>
+                        <li><a href="404.html">Investor Relations</a></li>
+                        <li><a href="404.html">Careers</a></li>
+                        <li><a href="404.html">Bio Tech Ferment</a></li>
+                        <li><a href="404.html">Grow by Bio Tech</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom" style="padding: 10px;">
+                <div class="footer-logo" style="padding-left: 20px;">
+                    BIO TECH
+                </div>
+                <div class="footer-legal">
+                    <a href="404.html">Terms & Conditions</a>
+                    <span></span>
+                    <span>&copy; Copyright Bio Tech 2026</span>
+                </div>
+                <div class="footer-social" style="padding-right: 20px;">
+                    <span>FOLLOW US</span>
+                    <a href="404.html">in</a>
+                    <a href="404.html">X</a>
+                    <a href="404.html">f</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/animations.js"></script>
+</body>
+</html>

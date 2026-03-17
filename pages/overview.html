@@ -15,7 +15,7 @@
             <li><a href="hardware.html">Hardware</a></li>
             <li><a href="software.html">Software</a></li>
             <li><a href="404.html">Support</a></li>
-            <li><a href="404.html">Bio Tech Reagents</a></li>
+            <li><a href="reagents.html">Bio Tech Reagents</a></li>
             <li><a href="404.html" class="btn btn-primary">Login</a></li>
         </ul>
         <div class="hamburger">
@@ -276,39 +276,6 @@
         </div>
     </footer>
 
-    <script>
-        function validateNewsletter(event) {
-            return true; 
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // Mobile Menu Toggle
-            const hamburger = document.querySelector('.hamburger');
-            const navLinks = document.querySelector('.nav-links');
-            if (hamburger) {
-                hamburger.addEventListener('click', () => {
-                    hamburger.classList.toggle('active');
-                    navLinks.classList.toggle('active');
-                });
-            }
-
-            // Reveal Animations on Scroll
-            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-zoom, .scroll-zoom, .scroll-slide-up');
-            const observerOptions = {
-                threshold: 0.15,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, observerOptions);
-
-            revealElements.forEach(el => observer.observe(el));
-        });
-    </script>
+    <script src="../js/animations.js"></script>
 </body>
 </html>

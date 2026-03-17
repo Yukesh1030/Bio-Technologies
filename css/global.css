@@ -69,6 +69,10 @@ nav {
     border-bottom: 1px solid var(--glass-border);
 }
 
+.hamburger {
+    display: none;
+}
+
 .logo {
     font-size: 1.5rem;
     font-weight: 700;
