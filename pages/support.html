@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bio Tech | Support</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --support-blue: #0088cc;
+            --support-bg: #fcfbf9;
+        }
+
+        .support-hero {
+            min-height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../assets/support.webp') center/cover;
+            display: flex;
+            align-items: center;
+            position: relative;
+            color: #fff;
+            padding: 100px 0;
+        }
+
+        .support-hero-content {
+            max-width: 800px;
+        }
+
+        .support-tag {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #fff;
+            padding-bottom: 5px;
+        }
+
+        .support-hero h1 {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            margin-bottom: 20px;
+            font-family: var(--font-serif);
+        }
+
+        .support-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .form-section {
+            background-color: var(--support-bg);
+            padding: 120px 0;
+        }
+
+        .form-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: flex-start;
+            background: #fff;
+            padding: 60px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.03);
+            position: relative;
+        }
+
+        .form-container::before {
+            content: '→';
+            position: absolute;
+            top: 60px;
+            left: 30px;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .form-left h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.1;
+            font-family: var(--font-serif);
+            margin-bottom: 30px;
+            color: #1a2b3c;
+            padding-left: 20px;
+        }
+
+        .support-form-wrapper {
+            background: #fff;
+            padding: 40px;
+            border: 1px solid #eee;
+        }
+
+        .support-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input, 
+        .form-group textarea {
+            padding: 12px 0;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            background: transparent;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            width: 100%;
+        }
+
+        .form-group input:focus, 
+        .form-group textarea:focus {
+            outline: none;
+            border-bottom-color: #000;
+        }
+
+        .error-msg {
+            font-size: 0.75rem;
+            color: #d93025;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .btn-submit {
+            background: #0f1c24;
+            color: #fff;
+            padding: 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background: #1a2b3c;
+        }
+
+        @media (max-width: 992px) {
+            .form-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 40px 20px;
+            }
+            .form-container::before {
+                left: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo"><a href="../index.html">BIO TECH</a></div>
+        <ul class="nav-links">
+            <li><a href="overview.html">Overview</a></li>
+            <li><a href="hardware.html">Hardware</a></li>
+            <li><a href="software.html">Software</a></li>
+            <li><a href="support.html" class="active">Support</a></li>
+            <li><a href="reagents.html">Bio Tech Reagents</a></li>
+            <li><a href="404.html" class="btn btn-primary">Login</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main>
+        <header class="support-hero">
+            <div class="container row">
+                <div class="support-hero-content reveal-left">
+                    <span class="support-tag">Support</span>
+                    <h1 class="playfair">Apex Support</h1>
+                    <p>Our fully remote, active error resolution and troubleshooting support service.</p>
+                </div>
+            </div>
+        </header>
+
+        <section class="form-section">
+            <div class="container">
+                <div class="form-container reveal-up">
+                    <div class="form-left">
+                        <h2 class="playfair">Remote, ticketless, different. Learn More.</h2>
+                    </div>
+                    <div class="support-form-wrapper">
+                        <form id="supportForm" class="support-form">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
+                                <span class="error-msg" id="firstNameError">First name should only contain letters.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+                                <span class="error-msg" id="lastNameError">Last name should only contain letters.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Company Email *</label>
+                                <input type="email" id="email" name="email" placeholder="Company Email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="goals">Briefly describe the automation goals you're aiming to achieve *</label>
+                                <textarea id="goals" name="goals" rows="3" placeholder="Tell us more" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit">Book a Meeting</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column" style="padding-left: 20px;">
+                    <h2 class="footer-title">Curious about autonomous labs?</h2>
+                    <form class="newsletter-form" action="404.html">
+                        <label class="footer-label">Enter Your Email</label>
+                        <div class="footer-input-group">
+                            <input type="email" placeholder="email@email.com" required>
+                        </div>
+                        <button type="submit" class="btn-footer">Submit</button>
+                    </form>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="overview.html">Overview</a></li>
+                        <li><a href="hardware.html">Hardware</a></li>
+                        <li><a href="software.html">Software</a></li>
+                        <li><a href="support.html">Support</a></li>
+                        <li><a href="reagents.html">Bio Tech Reagents</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Bio Tech Biosecurity</h4>
+                    <ul class="footer-links">
+                        <li><a href="404.html">Overview</a></li>
+                        <li><a href="404.html">Canopy</a></li>
+                        <li><a href="404.html">Horizon</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>More from Bio Tech</h4>
+                    <ul class="footer-links">
+                        <li><a href="404.html">About</a></li>
+                        <li><a href="404.html">Investor Relations</a></li>
+                        <li><a href="404.html">Careers</a></li>
+                        <li><a href="404.html">Bio Tech Ferment</a></li>
+                        <li><a href="404.html">Grow by Bio Tech</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom" style="padding: 10px;">
+                <div class="footer-logo" style="padding-left: 20px;">BIO TECH</div>
+                <div class="footer-legal">
+                    <a href="404.html">Terms & Conditions</a>
+                    <span></span>
+                    <span>&copy; Copyright Bio Tech 2026</span>
+                </div>
+                <div class="footer-social" style="padding-right: 20px;">
+                    <span>FOLLOW US</span>
+                    <a href="404.html">in</a>
+                    <a href="404.html">X</a>
+                    <a href="404.html">f</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/animations.js"></script>
+    <script>
+        document.getElementById('supportForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('firstName');
+            const lastName = document.getElementById('lastName');
+            const firstNameError = document.getElementById('firstNameError');
+            const lastNameError = document.getElementById('lastNameError');
+            
+            const alphaRegex = /^[A-Za-z]+$/;
+            let isValid = true;
+            
+            if (!alphaRegex.test(firstName.value)) {
+                firstNameError.style.display = 'block';
+                isValid = false;
+            } else {
+                firstNameError.style.display = 'none';
+            }
+            
+            if (!alphaRegex.test(lastName.value)) {
+                lastNameError.style.display = 'block';
+                isValid = false;
+            } else {
+                lastNameError.style.display = 'none';
+            }
+            
+            if (isValid) {
+                window.location.href = '404.html';
+            }
+        });
+
+        // Live validation feedback
+        const alphaOnly = (e) => {
+            const field = e.target;
+            const error = document.getElementById(field.id + 'Error');
+            const alphaRegex = /^[A-Za-z]*$/;
+            
+            if (!alphaRegex.test(field.value)) {
+                error.style.display = 'block';
+            } else {
+                error.style.display = 'none';
+            }
+        };
+
+        document.getElementById('firstName').addEventListener('input', alphaOnly);
+        document.getElementById('lastName').addEventListener('input', alphaOnly);
+    </script>
+</body>
+</html>
