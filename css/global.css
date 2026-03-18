@@ -29,7 +29,7 @@ body {
     color: var(--text-main);
     font-family: var(--font-sans);
     line-height: 1.6;
-    overflow-x: hidden;
+    overflow-x: visible;
 }
 
 h1, h2, h3, h4 {
@@ -171,7 +171,7 @@ nav {
 section {
     padding: var(--section-padding);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .container {
@@ -818,29 +818,40 @@ section {
 
 /* Sticky Section Layout */
 .sticky-container {
-    display: grid;
-    grid-template-columns: 0.6fr 1fr;
+    display: flex;
     gap: 100px;
-    align-items: start;
-    padding: 120px 8%;
+    align-items: flex-start;
+    padding: 0; /* Removing redundant padding */
 }
 
 .sticky-header {
-    position: sticky;
-    top: 100px;
+    position: -webkit-sticky;
+    position: sticky !important;
+    top: 80px !important;
     padding-bottom: 40px;
+    z-index: 100;
+    flex: 0 0 35%;
+    align-self: flex-start;
+}
+
+.platform-cards {
+    flex: 1;
 }
 
 @media (max-width: 1024px) {
     .sticky-container {
-        grid-template-columns: 1fr;
+        flex-direction: column;
         gap: 40px;
-        padding: 60px 5%;
     }
     
     .sticky-header {
-        position: static;
+        position: -webkit-sticky !important;
+        position: sticky !important;
+        top: 80px !important;
         padding-bottom: 20px;
+        flex: none;
+        width: 100%;
+        background: #fff; /* Ensure background on mobile to cover content if sticky */
     }
 }
 
@@ -915,7 +926,9 @@ section {
     padding: 120px 8%;
     background: #fff;
     color: #1a2b3c;
-    overflow: visible;
+    overflow: visible !important;
+    position: relative;
+    z-index: 1;
 }
 
 .platform-grid {
@@ -1077,15 +1090,15 @@ section {
     }
 }
 
-/* Fix for horizontal overflow */
+/* Fix for horizontal overflow - Set to visible for sticky header support */
 body, html {
-    overflow-x: hidden;
+    overflow-x: visible; 
     width: 100%;
     position: relative;
 }
 
 main {
-    overflow-x: hidden;
+    overflow-x: visible;
 }
 
 /* Hardware Page Specifics */
