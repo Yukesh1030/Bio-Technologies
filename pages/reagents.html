@@ -62,6 +62,7 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 0 30px var(--reagent-glow);
+            animation: float 6s ease-in-out infinite, glow-pulse 4s infinite alternate;
         }
 
         .liquid {
@@ -293,10 +294,23 @@
         }
 
         .kit-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 136, 204, 0.1);
             border-color: var(--reagent-blue);
+            z-index: 10;
         }
+
+        .kit-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(0, 136, 204, 0.05) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .kit-card:hover::after { opacity: 1; }
 
         .kit-card h3 {
             font-size: 1.5rem;
@@ -375,7 +389,54 @@
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { filter: drop-shadow(0 0 5px var(--reagent-glow)); }
+            50% { filter: drop-shadow(0 0 20px var(--reagent-blue)); }
+        }
+
+        /* Reveal Animations */
+        [class*="reveal"] {
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-up { transform: translateY(50px); }
+        .reveal-left { transform: translateX(-50px); }
+        .reveal-right { transform: translateX(50px); }
+
+        .reveal-up.visible,
+        .reveal-left.visible,
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translate(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.2s; }
+        .reveal-delay-2 { transition-delay: 0.4s; }
+        .reveal-delay-3 { transition-delay: 0.6s; }
+
+        .zoom-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .zoom-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Mouse Parallax Effect Classes */
+        .parallax-element {
+            transition: transform 0.2s ease-out;
         }
 
         @media (max-width: 992px) {
@@ -412,7 +473,7 @@
                         We are leveraging our 15 years of R&D experience to develop, manufacture, and supply high-quality products directly to customers. Our vision is to make it dramatically easier to use reagents in automated, high-throughput settings.
                     </p>
                 </div>
-                <div class="hero-visual-container zoom-in">
+                <div class="hero-visual-container zoom-in parallax-element">
                     <div class="viz-container">
                         <div class="reagent-hero-viz">
                             <div class="dna-vessel">
@@ -444,17 +505,17 @@
                 </div>
 
                 <div class="kit-grid">
-                    <div class="kit-card reveal-up" style="transition-delay: 0.1s;">
+                    <div class="kit-card reveal-up reveal-delay-1">
                         <h3>CFPS kit</h3>
                         <p>premiere CFPS kit that gives yields of up to 3 mg/mL, with the fastest reaction times. Includes a Solubility-Enhanced Reagent Mix.</p>
                         <span class="price-tag">$240.00 USD</span>
                     </div>
-                    <div class="kit-card reveal-up" style="transition-delay: 0.2s;">
+                    <div class="kit-card reveal-up reveal-delay-2">
                         <h3>CFPS Economy kit</h3>
                         <p>AI-optimized CFPS kit that produces yields of up to 1.5 mg/mL and is sold at a price point that makes CFPS more accessible.</p>
                         <span class="price-tag">$90.00 USD</span>
                     </div>
-                    <div class="kit-card reveal-up" style="transition-delay: 0.3s;">
+                    <div class="kit-card reveal-up reveal-delay-3">
                         <h3>CFPS Ready96 kit</h3>
                         <p>Automation-ready plates with all components premixed and aliquoted into a 96 well plate for high-throughput discovery.</p>
                         <span class="price-tag">$480.00 USD</span>
@@ -465,23 +526,23 @@
                     <div class="viz-container">
                         <div class="cfps-process-viz">
                             <div class="node">
-                                <div style="font-size: 1.5rem;">🧬</div>
+                                <img src="../assets/dna_template_icon.webp" alt="DNA Template" style="width: 50px; height: 50px; object-fit: contain; margin-bottom: 10px;">
                                 <h4>DNA Template</h4>
                             </div>
                             <div class="connector"></div>
                             <div class="node" style="border-color: var(--reagent-blue);">
-                                <div style="font-size: 1.5rem;">🧪</div>
+                                <img src="../assets/cell_lysate_icon.webp" alt="Cell Lysate" style="width: 50px; height: 50px; object-fit: contain; margin-bottom: 10px;">
                                 <h4>Cell Lysate</h4>
                             </div>
                             <div class="connector"></div>
                             <div class="node" style="border-color: var(--bio-teal);">
-                                <div style="font-size: 1.5rem;">✨</div>
+                                <img src="../assets/cfps_reaction_icon.webp" alt="CFPS Reaction" style="width: 50px; height: 50px; object-fit: contain; margin-bottom: 10px;">
                                 <h4>CFPS Reaction</h4>
                             </div>
                             <div class="connector"></div>
-                            <div class="node" style="background: var(--reagent-blue); color: #fff;">
-                                <div style="font-size: 1.5rem;">💎</div>
-                                <h4>Pure Protein</h4>
+                            <div class="node" style="background: rgba(0, 136, 204, 0.05); border-color: var(--reagent-blue);">
+                                <img src="../assets/pure_protein_icon.webp" alt="Pure Protein" style="width: 50px; height: 50px; object-fit: contain; margin-bottom: 10px;">
+                                <h4 style="color: var(--reagent-blue);">Pure Protein</h4>
                             </div>
                         </div>
                     </div>
@@ -531,10 +592,10 @@
                     <h3>Which kit is right for you?</h3>
                     <div class="viz-container" style="background: transparent; border: none;">
                         <div class="perf-chart" style="width: 100%; max-width: 800px;">
-                            <div class="bar-segment reveal-up" style="height: 90%;" data-val="3.0 mg/mL"></div>
-                            <div class="bar-segment reveal-up" style="height: 45%; background: var(--bio-pink); transition-delay: 0.2s;" data-val="1.5 mg/mL"></div>
-                            <div class="bar-segment reveal-up" style="height: 85%; transition-delay: 0.4s;" data-val="2.8 mg/mL"></div>
-                            <div class="bar-segment reveal-up" style="height: 30%; background: var(--bio-pink); transition-delay: 0.6s;" data-val="1.0 mg/mL"></div>
+                            <div class="bar-segment reveal-up reveal-delay-1" style="height: 90%;" data-val="3.0 mg/mL"></div>
+                            <div class="bar-segment reveal-up reveal-delay-2" style="height: 45%; background: var(--bio-pink);" data-val="1.5 mg/mL"></div>
+                            <div class="bar-segment reveal-up reveal-delay-3" style="height: 85%;" data-val="2.8 mg/mL"></div>
+                            <div class="bar-segment reveal-up reveal-delay-1" style="height: 30%; background: var(--bio-pink);" data-val="1.0 mg/mL"></div>
                         </div>
                     </div>
                     <div style="display: flex; gap: 20px; justify-content: center; margin-top: 20px; font-size: 0.8rem; opacity: 0.6;">
@@ -624,5 +685,16 @@
     </footer>
 
     <script src="../js/animations.js"></script>
+    <script>
+        // Hero Mouse Parallax Effect
+        const parallaxEl = document.querySelector('.parallax-element');
+        if (parallaxEl) {
+            window.addEventListener('mousemove', (e) => {
+                const moveX = (e.clientX - window.innerWidth / 2) / 50;
+                const moveY = (e.clientY - window.innerHeight / 2) / 50;
+                parallaxEl.style.transform = `scale(1) translate(${moveX}px, ${moveY}px)`;
+            });
+        }
+    </script>
 </body>
 </html>
