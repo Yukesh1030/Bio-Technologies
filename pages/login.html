@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Bio Tech</title>
+    <title>Login | STACKLY</title>
     <link rel="stylesheet" href="../css/global.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
@@ -238,13 +238,13 @@
 </head>
 <body>
     <nav>
-        <div class="logo"><a href="../index.html">BIO TECH</a></div>
+        <div class="logo"><a href="../index.html">STACKLY</a></div>
         <ul class="nav-links">
-            <li><a href="overview.html">Overview</a></li>
+            <li><a href="home.html">Home</a></li>
             <li><a href="hardware.html">Hardware</a></li>
             <li><a href="software.html">Software</a></li>
             <li><a href="support.html">Support</a></li>
-            <li><a href="reagents.html">Bio Tech Reagents</a></li>
+            <li><a href="reagents.html">STACKLY Reagents</a></li>
             <li><a href="signup.html" class="active btn btn-primary" style="background-color: rgb(18, 190, 18);">Sign Up</a></li>
         </ul>
         <div class="hamburger">
@@ -269,7 +269,7 @@
             
             <div class="login-header">
                 <h1>Welcome Back</h1>
-                <p>Login to access your Bio Tech account</p>
+                <p>Login to access your STACKLY account</p>
             </div>
 
             <form id="loginForm">
@@ -305,7 +305,7 @@
 
             <div class="sample-creds">
                 <h4>Sample Credentials</h4>
-                <div class="cred-item"><span>Email:</span> <code>admin@biotech.com</code></div>
+                <div class="cred-item"><span>Email:</span> <code>admin@stackly.com</code></div>
                 <div class="cred-item"><span>Password:</span> <code>admin123</code></div>
             </div>
 
@@ -328,7 +328,7 @@
             if (role === 'Admin') {
                 window.location.href = 'admin-dashboard.html';
             } else {
-                window.location.href = 'stakeholder-overview.html';
+                window.location.href = 'stakeholder-home.html';
             }
         });
 

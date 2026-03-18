@@ -804,8 +804,8 @@ section {
     }
 }
 
-/* Overview Page Specific Styles */
-.overview-hero {
+/* Home Page Specific Styles */
+.home-hero {
     height: 100vh;
     display: flex;
     align-items: center;
@@ -855,13 +855,13 @@ section {
     }
 }
 
-.overview-hero-content {
+.home-hero-content {
     max-width: 800px;
     position: relative;
     z-index: 2;
 }
 
-.overview-tag {
+.home-tag {
     display: inline-block;
     font-size: 0.8rem;
     font-weight: 700;
@@ -872,14 +872,14 @@ section {
     border-bottom: 2px solid #fff;
 }
 
-.overview-title {
+.home-title {
     font-size: clamp(3rem, 8vw, 6rem);
     line-height: 1;
     margin-bottom: 2rem;
     font-family: var(--font-serif);
 }
 
-.overview-desc {
+.home-desc {
     font-size: clamp(1.1rem, 2vw, 1.4rem);
     opacity: 0.9;
     max-width: 600px;
@@ -1077,7 +1077,7 @@ section {
 }
 
 @media (max-width: 768px) {
-    .overview-hero-content h1 {
+    .home-hero-content h1 {
         font-size: 3rem;
     }
     
