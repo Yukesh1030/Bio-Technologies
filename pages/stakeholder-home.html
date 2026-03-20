@@ -90,18 +90,32 @@
         }
 
         .user-greeting {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
+            background: #0d0d0d;
+            padding: 6px 6px 6px 22px;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            color: #fff;
             border: 1px solid rgba(255, 255, 255, 0.05);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .user-name {
             color: var(--accent-color);
             font-weight: 600;
-            margin-left: 5px;
+            margin-left: 2px;
+        }
+
+        .user-avatar {
+            width: 34px;
+            height: 34px;
+            background: #1a1a1a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
         }
 
         /* Achievement Stats */
@@ -238,7 +252,10 @@
                     <h1>Strategic Home</h1>
                 </div>
                 <div class="user-greeting">
-                    Logged in as <span class="user-name" id="displayUser">Stakeholder</span>
+                    Welcome, <span class="user-name" id="displayUser">Stakeholder</span>
+                    <a href="404.html"><div class="user-avatar">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    </div> </a>
                 </div>
             </header>
 
